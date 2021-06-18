@@ -19,6 +19,7 @@ function getWeather(cityName){
 
     fetch(requestUrl)
         .then(function(response) {
+            storeCity(cityName)
             return response.json()
         })
 
@@ -82,4 +83,20 @@ function generateForecastHtml(card, forecast) {
         <p>Humidity: ${forecast.humidity}</p>
         `
     )
+}
+
+function storeCity(cityName) {
+    var previousCities = JSON.parse(localStorage.getItem('previousCities'))
+    if (previousCities) {
+        if (!previousCities.includes(cityName)){
+            previousCities.push(cityName);
+        }
+    } else{
+        previousCities = [cityName];
+    }
+    localStorage.setItem('previousCities', JSON.stringify(previousCities))
+}
+
+function displayStoredCities() {
+    
 }
