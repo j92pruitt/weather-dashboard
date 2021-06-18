@@ -4,6 +4,8 @@ var cityLon;
 
 $('#city-search-input').submit(handleSubmit)
 
+var DateTime = luxon.DateTime;
+
 function handleSubmit(event){
     event.preventDefault();
 
@@ -37,15 +39,47 @@ function getOpenWeatherData(city,lat, lon) {
         
         .then(function(data) {
             console.log(data);
-            displayCurrentWeather(city, data.current.temp, data.current.wind_speed, data.current.humidity, data.current.uvi);
+            displayCurrentWeather(city, data);
+            displayFiveDayForecast(data)
         })
 
 }
 
-function displayCurrentWeather(city, temp, windSpeed, humidity, uvIndex) {
-    $('#city-name').text(city);
-    $('#current-temp').text(temp);
-    $('#current-wind-speed').text(windSpeed);
-    $('#current-humidity').text(humidity)
-    $('#current-uv-index').text(uvIndex)
+function displayCurrentWeather(city, weather) {
+    var currentDate = DateTime.fromSeconds(weather.current.dt).toLocaleString();
+    var weatherIcon = weather.current.weather[0].icon
+
+    $('#city-name').text(`${city} (${currentDate})`);
+    $('#weather-icon').attr('src', `https://openweathermap.org/img/wn/${weatherIcon}.png`)
+    $('#current-temp').text(weather.current.temp);
+    $('#current-wind-speed').text(weather.current.wind_speed);
+    $('#current-humidity').text(weather.current.humidity)
+    $('#current-uv-index').text(weather.current.uvi)
+}
+
+function displayFiveDayForecast(weather) {
+    var forecastArray = weather.daily;
+    var index = 1;
+    var forecast;
+
+    $('#5-day-forecast').children('div').each(function(){
+        forecast = forecastArray[index];
+        generateForecastHtml($(this), forecast);
+        index++
+    })
+}
+
+function generateForecastHtml(card, forecast) {
+    var date = DateTime.fromSeconds(forecast.dt).toLocaleString()
+    var weatherIcon = forecast.weather[0].icon
+
+    card.html(
+        `
+        <h4>${date}</h4>
+        <img class="forecast-icon" src="https://openweathermap.org/img/wn/${weatherIcon}.png">
+        <p>Temp: ${forecast.temp.day}</p>
+        <p>Wind: ${forecast.wind_speed}</p>
+        <p>Humidity: ${forecast.humidity}</p>
+        `
+    )
 }

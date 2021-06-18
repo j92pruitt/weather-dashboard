@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="./assets/style/style.css">
+
     <title>Weather Dashboard</title>
 </head>
 
@@ -42,15 +44,23 @@
         <div class="col-8">
             <!-- Current Weather -->
             <div class="row" id="current-weather-display">
-                <h2 id="city-name"></h2>
+                <div class="d-flex">
+                    <h2 id="city-name"></h2>
+                    <img id="weather-icon">
+                </div>
                 <p>Temp: <span id="current-temp"></span></p>
                 <p>Wind: <span id="current-wind-speed"></span></p>
                 <p>Humidity: <span id="current-humidity"></span></p>
                 <p>UV Index: <span id="current-uv-index"></span></p>
             </div>
             <!-- 5 day forecast: -->
-            <div class="row">
-
+            <div class="row flex-row" id="5-day-forecast">
+                <h3>5-Day Forecast:</h3>
+                <div class="card col 5-day"></div>
+                <div class="card col 5-day"></div>
+                <div class="card col 5-day"></div>
+                <div class="card col 5-day"></div>
+                <div class="card col 5-day"></div>
             </div>
         </div>
     </main>
@@ -58,6 +68,9 @@
     <!-- Bootstrap JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.27.0/build/global/luxon.min.js"></script>
+
     <script src="./assets/js/script.js"></script>
 
 </body>
