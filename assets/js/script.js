@@ -21,6 +21,7 @@ function getWeather(cityName){
 
     fetch(requestUrl)
         .then(function(response) {
+            // Error handling for user searching a city that does not exist. City will not be stored.
             if (response.status != 200) {
                 return "No City"
             }
@@ -31,10 +32,13 @@ function getWeather(cityName){
         })
 
         .then(function(data){
+            // Error handling for user searching a city that does not exist. Second API call is not made.
             if (data === "No City") {
                 console.log("Error Handled: No City by that name")
                 return
             }
+
+            // Weather endpoint is only used to get lat and lon.
             cityLat = data.coord.lat;
             cityLon = data.coord.lon;
             getOpenWeatherData(cityName,cityLat,cityLon)
@@ -42,6 +46,7 @@ function getWeather(cityName){
 }
 
 function getOpenWeatherData(city,lat, lon) {
+    // Onecall endpoint is used to get weather information for dashboard.
     var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=hourly,minutely,alerts&appid=${openweatherKey}`
     
     fetch(requestUrl)
@@ -57,6 +62,7 @@ function getOpenWeatherData(city,lat, lon) {
 
 }
 
+// Sets values for all html elements related to current weather. 
 function displayCurrentWeather(city, weather) {
     var currentDate = DateTime.fromSeconds(weather.current.dt).toLocaleString();
     var weatherIcon = weather.current.weather[0].icon
@@ -70,6 +76,7 @@ function displayCurrentWeather(city, weather) {
     setUvIndexColor(weather.current.uvi)
 }
 
+// Helper function for changing the uvi color indicator based on value.
 function setUvIndexColor(uvi) {
     if (uvi <= 2){
         $('#current-uv-index').css({'background-color' : 'green'})
@@ -82,6 +89,7 @@ function setUvIndexColor(uvi) {
     }
 }
 
+// Loop through 5-day forecast cards and populate them with html
 function displayFiveDayForecast(weather) {
     var forecastArray = weather.daily;
     var index = 1;
@@ -94,6 +102,7 @@ function displayFiveDayForecast(weather) {
     })
 }
 
+// Generate html for a given forecast
 function generateForecastHtml(card, forecast) {
     var date = DateTime.fromSeconds(forecast.dt).toLocaleString()
     var weatherIcon = forecast.weather[0].icon
@@ -109,6 +118,7 @@ function generateForecastHtml(card, forecast) {
     )
 }
 
+// Stores a given city in local storage.
 function storeCity(cityName) {
     var previousCities = JSON.parse(localStorage.getItem('previousCities'))
     if (previousCities) {
@@ -122,6 +132,7 @@ function storeCity(cityName) {
     localStorage.setItem('previousCities', JSON.stringify(previousCities))
 }
 
+// Generates buttons for all previously searched cities in local storage.
 function displayStoredCities() {
     var previousCities = JSON.parse(localStorage.getItem('previousCities'))
     
