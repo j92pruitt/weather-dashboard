@@ -135,6 +135,10 @@ function storeCity(cityName) {
 // Generates buttons for all previously searched cities in local storage.
 function displayStoredCities() {
     var previousCities = JSON.parse(localStorage.getItem('previousCities'))
+
+    if(previousCities === null){
+        return
+    }
     
     for (i = 0; i < previousCities.length; i++){
         var previousCity = previousCities[i];
