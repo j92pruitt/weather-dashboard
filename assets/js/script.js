@@ -21,7 +21,9 @@ function getWeather(cityName){
 
     fetch(requestUrl)
         .then(function(response) {
+
             storeCity(cityName)
+
             return response.json()
         })
 
@@ -41,7 +43,6 @@ function getOpenWeatherData(city,lat, lon) {
         })
         
         .then(function(data) {
-            console.log(data);
             displayCurrentWeather(city, data);
             displayFiveDayForecast(data)
         })
@@ -92,6 +93,7 @@ function storeCity(cityName) {
     if (previousCities) {
         if (!previousCities.includes(cityName)){
             previousCities.push(cityName);
+            appendCityButton(cityName)
         }
     } else{
         previousCities = [cityName];
@@ -103,18 +105,25 @@ function displayStoredCities() {
     var previousCities = JSON.parse(localStorage.getItem('previousCities'))
     
     for (i = 0; i < previousCities.length; i++){
-        var button = $(`<a href="#" class="btn btn-secondary w-100 m-1">${previousCities[i]}</a>`)
-
-        $('#previous-cities-list').append(
-            button
-        )
-
-        button.click(recallForecast)
+        var previousCity = previousCities[i];
+        appendCityButton(previousCity)
     }
 }
 
-function recallForecast(event) {
-    event.preventDefault()
+function appendCityButton(cityName){
+    var button = $(`<a href="#" class="btn btn-secondary w-100 m-1">${cityName}</a>`)
 
-    console.log($(this).text())
+    $('#previous-cities-list').append(
+        button
+    )
+
+    button.click(recallForecast)
+}
+
+function recallForecast(event) {
+    event.preventDefault();
+
+    var cityName = $(this).text();
+
+    getWeather(cityName);
 }
