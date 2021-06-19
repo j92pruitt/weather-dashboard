@@ -17,7 +17,7 @@ function handleSubmit(event){
 }
 
 function getWeather(cityName){
-    var requestUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openweatherKey}&units=imperial`;
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openweatherKey}&units=imperial`;
 
     fetch(requestUrl)
         .then(function(response) {
