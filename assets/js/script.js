@@ -21,6 +21,9 @@ function getWeather(cityName){
 
     fetch(requestUrl)
         .then(function(response) {
+            if (response.status != 200) {
+                return "No City"
+            }
 
             storeCity(cityName)
 
@@ -28,6 +31,11 @@ function getWeather(cityName){
         })
 
         .then(function(data){
+            if (data === "No City") {
+                console.log("Error Handled: No City by that name")
+                return
+            }
+            console.log(data)
             cityLat = data.coord.lat;
             cityLon = data.coord.lon;
             getOpenWeatherData(cityName,cityLat,cityLon)
