@@ -35,7 +35,6 @@ function getWeather(cityName){
                 console.log("Error Handled: No City by that name")
                 return
             }
-            console.log(data)
             cityLat = data.coord.lat;
             cityLon = data.coord.lon;
             getOpenWeatherData(cityName,cityLat,cityLon)
@@ -51,6 +50,7 @@ function getOpenWeatherData(city,lat, lon) {
         })
         
         .then(function(data) {
+            console.log(data)
             displayCurrentWeather(city, data);
             displayFiveDayForecast(data)
         })
@@ -67,6 +67,19 @@ function displayCurrentWeather(city, weather) {
     $('#current-wind-speed').text(weather.current.wind_speed);
     $('#current-humidity').text(weather.current.humidity)
     $('#current-uv-index').text(weather.current.uvi)
+    setUvIndexColor(weather.current.uvi)
+}
+
+function setUvIndexColor(uvi) {
+    if (uvi <= 2){
+        $('#current-uv-index').css({'background-color' : 'green'})
+    } else if (uvi <= 5) {
+        $('#current-uv-index').css({'background-color' : 'yellow'})
+    } else if (uvi <= 7) {
+        $('#current-uv-index').css({'background-color' : 'orange'})
+    } else{
+        $('#current-uv-index').css({'background-color' : 'red'})
+    }
 }
 
 function displayFiveDayForecast(weather) {
