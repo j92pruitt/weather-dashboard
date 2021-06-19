@@ -16,7 +16,7 @@
 
 <body>
 
-    <header class="container ">
+    <header class="text-white p-2">
         <h1 class="text-center">Weather Dashboard</h1>
     </header>
 
@@ -24,7 +24,7 @@
         <!-- Left container -->
         <div class="col-4">
             <!-- Search Box -->
-            <div class="row card mb-3">
+            <div class="row card mt-3 mb-3 w-100">
                 <div class="card-body">
                     <h2>Search for a City:</h2>
                     <form id='city-search-input'>
@@ -47,7 +47,7 @@
         <!-- Right container -->
         <div class="col-8">
             <!-- Current Weather -->
-            <div class="row" id="current-weather-display">
+            <div class="row border m-3" id="current-weather-display">
                 <div class="d-flex">
                     <h2 id="city-name"></h2>
                     <img id="weather-icon">
@@ -55,16 +55,16 @@
                 <p>Temp: <span id="current-temp"></span></p>
                 <p>Wind: <span id="current-wind-speed"></span></p>
                 <p>Humidity: <span id="current-humidity"></span></p>
-                <p>UV Index: <span id="current-uv-index"></span></p>
+                <p>UV Index: <span class="text-white px-2 py-1 rounded" id="current-uv-index"></span></p>
             </div>
             <!-- 5 day forecast: -->
-            <div class="row flex-row" id="5-day-forecast">
+            <div class="row flex-row justify-content-between" id="5-day-forecast">
                 <h3>5-Day Forecast:</h3>
-                <div class="card col 5-day"></div>
-                <div class="card col 5-day"></div>
-                <div class="card col 5-day"></div>
-                <div class="card col 5-day"></div>
-                <div class="card col 5-day"></div>
+                <div class="card col-2 text-white bg-blue"></div>
+                <div class="card col-2 text-white bg-blue"></div>
+                <div class="card col-2 text-white bg-blue"></div>
+                <div class="card col-2 text-white bg-blue"></div>
+                <div class="card col-2 me-5 text-white bg-blue"></div>
             </div>
         </div>
     </main>

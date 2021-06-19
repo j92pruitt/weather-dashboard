@@ -63,9 +63,9 @@ function displayCurrentWeather(city, weather) {
 
     $('#city-name').text(`${city} (${currentDate})`);
     $('#weather-icon').attr('src', `https://openweathermap.org/img/wn/${weatherIcon}.png`)
-    $('#current-temp').text(weather.current.temp);
-    $('#current-wind-speed').text(weather.current.wind_speed);
-    $('#current-humidity').text(weather.current.humidity)
+    $('#current-temp').html(`${weather.current.temp}<span>&#176;</span>F`);
+    $('#current-wind-speed').text(`${weather.current.wind_speed} MPH`);
+    $('#current-humidity').text(`${weather.current.humidity} %`)
     $('#current-uv-index').text(weather.current.uvi)
     setUvIndexColor(weather.current.uvi)
 }
@@ -102,9 +102,9 @@ function generateForecastHtml(card, forecast) {
         `
         <h4>${date}</h4>
         <img class="forecast-icon" src="https://openweathermap.org/img/wn/${weatherIcon}.png">
-        <p>Temp: ${forecast.temp.day}</p>
-        <p>Wind: ${forecast.wind_speed}</p>
-        <p>Humidity: ${forecast.humidity}</p>
+        <p>Temp: ${forecast.temp.day}<span>&#176;</span>F</p>
+        <p>Wind: ${forecast.wind_speed} MPH</p>
+        <p>Humidity: ${forecast.humidity} %</p>
         `
     )
 }
