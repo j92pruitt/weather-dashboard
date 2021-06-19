@@ -4,6 +4,8 @@ var cityLon;
 
 $('#city-search-input').submit(handleSubmit)
 
+displayStoredCities();
+
 var DateTime = luxon.DateTime;
 
 function handleSubmit(event){
@@ -98,5 +100,21 @@ function storeCity(cityName) {
 }
 
 function displayStoredCities() {
+    var previousCities = JSON.parse(localStorage.getItem('previousCities'))
     
+    for (i = 0; i < previousCities.length; i++){
+        var button = $(`<a href="#" class="btn btn-secondary w-100 m-1">${previousCities[i]}</a>`)
+
+        $('#previous-cities-list').append(
+            button
+        )
+
+        button.click(recallForecast)
+    }
+}
+
+function recallForecast(event) {
+    event.preventDefault()
+
+    console.log($(this).text())
 }
